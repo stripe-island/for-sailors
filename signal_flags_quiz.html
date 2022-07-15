@@ -336,212 +336,38 @@
 
                 case 0:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].letter + "（" + choices[qIndex].word + "）";
-
-                    document.getElementById("choice1").innerHTML = choices[0].meaning;
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].meaning;
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].meaning;
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].meaning;
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "letter", "meaning");
                     break;
 
                 case 1:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].letter + "（" + choices[qIndex].word + "）";
-
-                    document.getElementById("choice1").innerHTML = choices[0].SVGText;
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].SVGText;
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].SVGText;
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].SVGText;
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "letter", "SVGText");
                     break;
 
                 case 2:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].meaning;
-
-                    document.getElementById("choice1").innerHTML = choices[0].letter + "（" + choices[0].word + "）";
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].letter + "（" + choices[1].word + "）";
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].letter + "（" + choices[2].word + "）";
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].letter + "（" + choices[3].word + "）";
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "meaning", "letter");
                     break;
 
                 case 3:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].meaning;
-
-                    document.getElementById("choice1").innerHTML = choices[0].SVGText;
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].SVGText;
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].SVGText;
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].SVGText;
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "meaning", "SVGText");
                     break;
 
                 case 4:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].SVGText;
-
-                    document.getElementById("choice1").innerHTML = choices[0].letter + "（" + choices[0].word + "）";
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].letter + "（" + choices[1].word + "）";
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].letter + "（" + choices[2].word + "）";
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].letter + "（" + choices[3].word + "）";
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "SVGText", "letter");
                     break;
 
                 case 5:
 
-                    var choices = [];
-                    loop: while (choices.length < 4) {
-
-                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
-
-                        for (var i = 0; i < choices.length; i++) {
-                            if (flag.letter === choices[i].letter) {
-                                continue loop;
-                            }
-                        }
-
-                        choices.push(flag);
-                    }
-
-                    var qIndex = getRandomInt(4);
-
-                    correctAnswer = choices[qIndex].letter;
-                    document.getElementById("question").innerHTML = choices[qIndex].SVGText;
-
-                    document.getElementById("choice1").innerHTML = choices[0].meaning;
-                    document.getElementById("choice1").dataset.answer = choices[0].letter;
-
-                    document.getElementById("choice2").innerHTML = choices[1].meaning;
-                    document.getElementById("choice2").dataset.answer = choices[1].letter;
-
-                    document.getElementById("choice3").innerHTML = choices[2].meaning;
-                    document.getElementById("choice3").dataset.answer = choices[2].letter;
-
-                    document.getElementById("choice4").innerHTML = choices[3].meaning;
-                    document.getElementById("choice4").dataset.answer = choices[3].letter;
-
+                    var choices = getChoices(LetterFlags);
+                    bindChoices(choices, "letter", "SVGText", "meaning");
                     break;
 
                 case 6:
@@ -551,70 +377,14 @@
                     var MeaningToImage = getRandomInt(2);
                     if (MeaningToImage === 0) {
 
-                        var choices = [];
-                        loop: while (choices.length < 4) {
-
-                            var flag = OtherFlags[getRandomInt(OtherFlags.length)];
-
-                            for (var i = 0; i < choices.length; i++) {
-                                if (flag.meaning === choices[i].meaning) {
-                                    continue loop;
-                                }
-                            }
-
-                            choices.push(flag);
-                        }
-
-                        var qIndex = getRandomInt(4);
-
-                        correctAnswer = choices[qIndex].meaning;
-                        document.getElementById("question").innerHTML = choices[qIndex].SVGText;
-
-                        document.getElementById("choice1").innerHTML = choices[0].meaning;
-                        document.getElementById("choice1").dataset.answer = choices[0].meaning;
-
-                        document.getElementById("choice2").innerHTML = choices[1].meaning;
-                        document.getElementById("choice2").dataset.answer = choices[1].meaning;
-
-                        document.getElementById("choice3").innerHTML = choices[2].meaning;
-                        document.getElementById("choice3").dataset.answer = choices[2].meaning;
-
-                        document.getElementById("choice4").innerHTML = choices[3].meaning;
-                        document.getElementById("choice4").dataset.answer = choices[3].meaning;
+                        var choices = getChoices(OtherFlags);
+                        bindChoices(choices, "meaning", "SVGText", "meaning");
 
                     }
                     else {
 
-                        var choices = [];
-                        loop: while (choices.length < 4) {
-
-                            var flag = OtherFlags[getRandomInt(OtherFlags.length)];
-
-                            for (var i = 0; i < choices.length; i++) {
-                                if (flag.meaning === choices[i].meaning) {
-                                    continue loop;
-                                }
-                            }
-
-                            choices.push(flag);
-                        }
-
-                        var qIndex = getRandomInt(4);
-
-                        correctAnswer = choices[qIndex].meaning;
-                        document.getElementById("question").innerHTML = choices[qIndex].meaning;
-
-                        document.getElementById("choice1").innerHTML = choices[0].SVGText;
-                        document.getElementById("choice1").dataset.answer = choices[0].meaning;
-
-                        document.getElementById("choice2").innerHTML = choices[1].SVGText;
-                        document.getElementById("choice2").dataset.answer = choices[1].meaning;
-
-                        document.getElementById("choice3").innerHTML = choices[2].SVGText;
-                        document.getElementById("choice3").dataset.answer = choices[2].meaning;
-
-                        document.getElementById("choice4").innerHTML = choices[3].SVGText;
-                        document.getElementById("choice4").dataset.answer = choices[3].meaning;
+                        var choices = getChoices(OtherFlags);
+                        bindChoices(choices, "meaning", "meaning", "SVGText");
 
                     }
 
@@ -626,142 +396,26 @@
 
                         case 0:
 
-                            var choices = [];
-                            loop: while (choices.length < 4) {
-
-                                var flag = Combination[getRandomInt(Combination.length)];
-
-                                for (var i = 0; i < choices.length; i++) {
-                                    if (flag.text === choices[i].text) {
-                                        continue loop;
-                                    }
-                                }
-
-                                choices.push(flag);
-                            }
-
-                            var qIndex = getRandomInt(4);
-
-                            correctAnswer = choices[qIndex].text;
-                            document.getElementById("question").innerHTML = choices[qIndex].meaning;
-
-                            document.getElementById("choice1").innerHTML = choices[0].SVGText;
-                            document.getElementById("choice1").dataset.answer = choices[0].text;
-
-                            document.getElementById("choice2").innerHTML = choices[1].SVGText;
-                            document.getElementById("choice2").dataset.answer = choices[1].text;
-
-                            document.getElementById("choice3").innerHTML = choices[2].SVGText;
-                            document.getElementById("choice3").dataset.answer = choices[2].text;
-
-                            document.getElementById("choice4").innerHTML = choices[3].SVGText;
-                            document.getElementById("choice4").dataset.answer = choices[3].text;
-
+                            var choices = getChoices(Combination);
+                            bindChoices(choices, "text", "meaning", "SVGText");
                             break;
 
                         case 1:
 
-                            var choices = [];
-                            loop: while (choices.length < 4) {
-
-                                var flag = Combination[getRandomInt(Combination.length)];
-
-                                for (var i = 0; i < choices.length; i++) {
-                                    if (flag.text === choices[i].text) {
-                                        continue loop;
-                                    }
-                                }
-
-                                choices.push(flag);
-                            }
-
-                            var qIndex = getRandomInt(4);
-
-                            correctAnswer = choices[qIndex].text;
-                            document.getElementById("question").innerHTML = choices[qIndex].meaning;
-
-                            document.getElementById("choice1").innerHTML = choices[0].text;
-                            document.getElementById("choice1").dataset.answer = choices[0].text;
-
-                            document.getElementById("choice2").innerHTML = choices[1].text;
-                            document.getElementById("choice2").dataset.answer = choices[1].text;
-
-                            document.getElementById("choice3").innerHTML = choices[2].text;
-                            document.getElementById("choice3").dataset.answer = choices[2].text;
-
-                            document.getElementById("choice4").innerHTML = choices[3].text;
-                            document.getElementById("choice4").dataset.answer = choices[3].text;
-
+                            var choices = getChoices(Combination);
+                            bindChoices(choices, "text", "meaning", "text");
                             break;
 
                         case 2:
 
-                            var choices = [];
-                            loop: while (choices.length < 4) {
-
-                                var flag = Combination[getRandomInt(Combination.length)];
-
-                                for (var i = 0; i < choices.length; i++) {
-                                    if (flag.text === choices[i].text) {
-                                        continue loop;
-                                    }
-                                }
-
-                                choices.push(flag);
-                            }
-
-                            var qIndex = getRandomInt(4);
-
-                            correctAnswer = choices[qIndex].text;
-                            document.getElementById("question").innerHTML = choices[qIndex].SVGText;
-
-                            document.getElementById("choice1").innerHTML = choices[0].meaning;
-                            document.getElementById("choice1").dataset.answer = choices[0].text;
-
-                            document.getElementById("choice2").innerHTML = choices[1].meaning;
-                            document.getElementById("choice2").dataset.answer = choices[1].text;
-
-                            document.getElementById("choice3").innerHTML = choices[2].meaning;
-                            document.getElementById("choice3").dataset.answer = choices[2].text;
-
-                            document.getElementById("choice4").innerHTML = choices[3].meaning;
-                            document.getElementById("choice4").dataset.answer = choices[3].text;
-
+                            var choices = getChoices(Combination);
+                            bindChoices(choices, "text", "SVGText", "meaning");
                             break;
 
                         case 3:
 
-                            var choices = [];
-                            loop: while (choices.length < 4) {
-
-                                var flag = Combination[getRandomInt(Combination.length)];
-
-                                for (var i = 0; i < choices.length; i++) {
-                                    if (flag.text === choices[i].text) {
-                                        continue loop;
-                                    }
-                                }
-
-                                choices.push(flag);
-                            }
-
-                            var qIndex = getRandomInt(4);
-
-                            correctAnswer = choices[qIndex].text;
-                            document.getElementById("question").innerHTML = choices[qIndex].text;
-
-                            document.getElementById("choice1").innerHTML = choices[0].meaning;
-                            document.getElementById("choice1").dataset.answer = choices[0].text;
-
-                            document.getElementById("choice2").innerHTML = choices[1].meaning;
-                            document.getElementById("choice2").dataset.answer = choices[1].text;
-
-                            document.getElementById("choice3").innerHTML = choices[2].meaning;
-                            document.getElementById("choice3").dataset.answer = choices[2].text;
-
-                            document.getElementById("choice4").innerHTML = choices[3].meaning;
-                            document.getElementById("choice4").dataset.answer = choices[3].text;
-
+                            var choices = getChoices(Combination);
+                            bindChoices(choices, "text", "text", "meaning");
                             break;
 
                     }
@@ -773,6 +427,56 @@
 
         function getRandomInt(max) {
             return Math.floor(Math.random() * max);
+        }
+
+        function getChoices(fromFlags) {
+
+            var choices = [];
+
+            loop: while (choices.length < 4) {
+
+                var flag = fromFlags[getRandomInt(fromFlags.length)];
+
+                for (var i = 0; i < choices.length; i++) {
+                    if (Object.is(flag, choices[i])) {
+                        continue loop;
+                    }
+                }
+
+                choices.push(flag);
+            }
+
+            return choices;
+        }
+
+        function bindChoices(choices, idPropName, questionPropName, answerPropName) {
+
+            var qIndex = getRandomInt(4);
+
+            correctAnswer = choices[qIndex][idPropName];
+
+            document.getElementById("choice1").dataset.answer = choices[0][idPropName];
+            document.getElementById("choice2").dataset.answer = choices[1][idPropName];
+            document.getElementById("choice3").dataset.answer = choices[2][idPropName];
+            document.getElementById("choice4").dataset.answer = choices[3][idPropName];
+
+            document.getElementById("question").innerHTML = choices[qIndex][questionPropName];
+
+            if (questionPropName === "letter") {
+                document.getElementById("question").innerHTML += "（" + choices[qIndex].word + "）";
+            }
+
+            document.getElementById("choice1").innerHTML = choices[0][answerPropName];
+            document.getElementById("choice2").innerHTML = choices[1][answerPropName];
+            document.getElementById("choice3").innerHTML = choices[2][answerPropName];
+            document.getElementById("choice4").innerHTML = choices[3][answerPropName];
+
+            if (answerPropName === "letter") {
+                document.getElementById("choice1").innerHTML += "（" + choices[0].word + "）";
+                document.getElementById("choice2").innerHTML += "（" + choices[1].word + "）";
+                document.getElementById("choice3").innerHTML += "（" + choices[2].word + "）";
+                document.getElementById("choice4").innerHTML += "（" + choices[3].word + "）";
+            }
         }
 
     </script>
