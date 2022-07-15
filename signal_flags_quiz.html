@@ -1,0 +1,842 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>国際信号旗を覚える</title>
+
+    <script>
+
+        const LetterFlags = [
+            {
+                letter: "A",
+                word: "アルファ",
+                meaning: "私は、潜水夫を降ろしている。微速で十分避けよ。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"20\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"20.5,0.5 60.5,0.5 40.5,25.5 60.5,50.5 20.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "B",
+                word: "ブラボー",
+                meaning: "私は、危険物を荷役中または運送中である。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><polygon points=\"0.5,0.5 60.5,0.5 40.5,25.5 60.5,50.5 0.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "C",
+                word: "チャーリー",
+                meaning: "イエス（肯定または“直前の符字は肯定の意味に解されたい”）。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"10.5\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"20.5\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"30.5\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"40.5\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "D",
+                word: "デルタ",
+                meaning: "私を避けよ。私は、操縦が困難である。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"13\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"0.5\" y=\"13.5\" width=\"60\" height=\"24\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"37.5\" width=\"60\" height=\"13\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                letter: "E",
+                word: "エコー",
+                meaning: "私は、針路を右に変えている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"25.5\" width=\"60\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "F",
+                word: "フォックストロット",
+                meaning: "私は操縦できない。私と通信せよ。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"1,25.5 30.5,1 60,25.5 30.5,50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "G",
+                word: "ゴルフ",
+                meaning: "私は水先人が欲しい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"10.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"20.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"30.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"40.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"50.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "G",
+                word: "ゴルフ",
+                meaning: "私は揚網中である。（漁場で接近して操業している船舶によって用いられたとき）。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"10.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"20.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"30.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"40.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"50.5\" y=\"0.5\" width=\"10\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "H",
+                word: "ホテル",
+                meaning: "私は、水先人を乗せている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "I",
+                word: "インディア",
+                meaning: "私は、針路を左に変えている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><circle cx=\"30.5\" cy=\"25.5\" r=\"15\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /></svg>"
+            },
+            {
+                letter: "J",
+                word: "ジュリエット",
+                meaning: "私を十分避けよ。私は火災中で、危険貨物を積んでいる。または、危険貨物を流出させている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"13\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"13.5\" width=\"60\" height=\"24\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"37.5\" width=\"60\" height=\"13\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "K",
+                word: "キロ",
+                meaning: "私は、あなたと通信したい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "L",
+                word: "リマ",
+                meaning: "あなたは、すぐ停船されたい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><rect x=\"0.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><rect x=\"30.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                letter: "M",
+                word: "マイク",
+                meaning: "本船は停船している。行き足はない。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"5.5,0.5 55.5,0.5 30.5,20.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"5.5,50.5 55.5,50.5 30.5,30.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"0.5,5.5 0.5,45.5 25.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"60.5,5.5 60.5,45.5 35.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "N",
+                word: "ノベンバー",
+                meaning: "ノウ（否定または“直前の符字は否定の意味に解されたい”）。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"15.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"45.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"15.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"30.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"45.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"15.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"45.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"15.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"30.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"45.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "O",
+                word: "オスカー",
+                meaning: "人が、海中に落ちた。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"1,0.5 60.5,0.5 60.5,50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "P",
+                word: "パパ",
+                meaning: "港内で、本船は、出港しようとしているので全員帰船されたい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                letter: "P",
+                word: "パパ",
+                meaning: "洋上で、音響信号により“私は水先人がほしい”の意味にも使用できる。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                letter: "P",
+                word: "パパ",
+                meaning: "洋上で、本船の漁網が障害物にひっかかっている。（漁船はこのような意味に用いることができる）。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                letter: "Q",
+                word: "ケベック",
+                meaning: "本船は健康である。検疫上の交通許可を求める。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                letter: "R",
+                word: "ロメオ",
+                meaning: "※昭和４４年２月削除、以降、旗は存在しているが意味はない。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"0.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "S",
+                word: "シエラ",
+                meaning: "本船は、機関を後進にかけている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "T",
+                word: "タンゴ",
+                meaning: "本船を避けよ。本船は、２そうびきのトロールに従事中である。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"20\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"20.5\" y=\"0.5\" width=\"20\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"40.5\" y=\"0.5\" width=\"20\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                letter: "U",
+                word: "ユニフォーム",
+                meaning: "あなたは危険に向かっている。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "V",
+                word: "ヴィクター",
+                meaning: "私は援助が欲しい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"5.5,0.5 55.5,0.5 30.5,20.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"5.5,50.5 55.5,50.5 30.5,30.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,5.5 0.5,45.5 25.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"60.5,5.5 60.5,45.5 35.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                letter: "W",
+                word: "ウイスキー",
+                meaning: "私は、医療の援助が欲しい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"5.5\" y=\"5.5\" width=\"50\" height=\"40\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "X",
+                word: "エックスレイ",
+                meaning: "実施を待て、そして私の信号に注意せよ。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"35.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"35.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                letter: "Y",
+                word: "ヤンキー",
+                meaning: "本船は走錨中です。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"10.5,0.5 20.5,0.5 0.5,20.5 0.5,10.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"30.5,0.5 40.5,0.5 0.5,40.5 0.5,30.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"50.5,0.5 59.5,0.5 10.5,50.5 1.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"60.5,11.5 60.5,23 33,50.5 21.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"60.5,35.5 60.5,50.5 45.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "Z",
+                word: "ズールー",
+                meaning: "私は引き船が欲しい。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><polygon points=\"1,0.5 60,0.5 30.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"60,1 60,50 31,25.5\" fill=\"blue\" /><polygon points=\"30.5,25.5 60,50.5 1,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                letter: "Z",
+                word: "ズールー",
+                meaning: "私は投網中である。（漁場で接近して操業している漁船によって用いられたとき）。",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><polygon points=\"1,0.5 60,0.5 30.5,25.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"60,1 60,50 31,25.5\" fill=\"blue\" /><polygon points=\"30.5,25.5 60,50.5 1,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            }
+        ];
+
+        const OtherFlags = [
+            {
+                meaning: "数字旗　１",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><circle cx=\"20.5\" cy=\"20.5\" r=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                meaning: "数字旗　２",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><circle cx=\"20.5\" cy=\"20.5\" r=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                meaning: "数字旗　３",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,0.5 26.5,3.8 26.5,37.2 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"54.5,7.3 80.5,10.5 80.5,30.5 54.5,33.7\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                meaning: "数字旗　４",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,0.5 38,5.2 38,18 0.5,18\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"43,5.9 80.5,10.5 80.5,18 43,18\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"0.5,23 38,23 38,35.9 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"43,23 80.5,23 80.5,30.5 43,35.2\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                meaning: "数字旗　５",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"40.5,5.5 80.5,10.5 80.5,30.5 40.5,35.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                meaning: "数字旗　６",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><polygon points=\"0.5,20.5 80.5,20.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                meaning: "数字旗　７",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"0.5,20.5 80.5,20.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                meaning: "数字旗　８",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"0.5,0.5 38,5.2 38,18 0.5,18\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"43,5.9 80.5,10.5 80.5,18 43,18\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,23 38,23 38,35.9 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"43,23 80.5,23 80.5,30.5 43,35.2\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                meaning: "数字旗　９",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"40.5,5.5 80.5,10.5 80.5,20.5 40.5,20.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /><polygon points=\"0.5,20.5 40.5,20.5 40.5,35.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"40.5,20.5 80.5,20.5 80.5,30.5 40.5,35.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                meaning: "数字旗　０",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"0.5,0.5 26.5,3.8 26.5,37.2 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"54.5,7.3 80.5,10.5 80.5,30.5 54.5,33.7\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                meaning: "第１代表旗",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><polygon points=\"0.5,0.5 60.5,25.5 0.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"0.5,10.5 40.5,25.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /></svg>"
+            },
+            {
+                meaning: "第２代表旗",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><polygon points=\"0.5,0.5 60.5,25.5 0.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"30.5,13 60.5,25.5 30.5,38\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /></svg>"
+            },
+            {
+                meaning: "第３代表旗",
+                SVGText: "<svg viewBox=\"0 0 61 51\"><polygon points=\"0.5,0.5 60.5,25.5 0.5,50.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,15.5 36.3,15.5 60.5,25.5 36.3,35.5 0.5,35.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"black\" /></svg>"
+            },
+            {
+                meaning: "回答旗",
+                SVGText: "<svg viewBox=\"0 0 81 41\"><polygon points=\"0.5,0.5 80.5,10.5 80.5,30.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"0.5,0.5 16.5,2.5 16.5,38.5 0.5,40.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"32.5,4.5 48.5,6.5 48.5,34.5 32.5,36.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"64.5,8.5 80.5,10.5 80.5,30.5 64.5,32.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            }
+        ];
+
+        const Combination = [
+            {
+                text: "RU",
+                meaning: "私を避けよ。私は、操縦が困難である。",
+                SVGText: "<svg viewBox=\"0 0 61 102\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"0.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"51\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"51\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"76\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"76\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                text: "RU1",
+                meaning: "私は、操縦の試運転をしている。",
+                SVGText: "<svg viewBox=\"0 0 81 143\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><rect x=\"0.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"0.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"35.5\" y=\"30.5\" width=\"25\" height=\"20\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"51\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"51\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"76\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"76\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"0.5,101.5 80.5,111.5 80.5,131.5 0.5,141.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><circle cx=\"20.5\" cy=\"121.5\" r=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                text: "NC",
+                meaning: "私は遭難している。直ちに救援がほしい。",
+                SVGText: "<svg viewBox=\"0 0 61 102\"><rect x=\"0.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"15.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"45.5\" y=\"0.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"15.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"30.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"45.5\" y=\"13\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"15.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"45.5\" y=\"25.5\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"15.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"30.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"45.5\" y=\"38\" width=\"15\" height=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"51\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"61\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"71\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"81\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"91\" width=\"60\" height=\"10\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            },
+            {
+                text: "UY",
+                meaning: "私は演習中である。私を避けられたい。",
+                SVGText: "<svg viewBox=\"0 0 61 102\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"51\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"yellow\" /><polygon points=\"10.5,51 20.5,51 0.5,71 0.5,61\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"30.5,51 40.5,51 0.5,91 0.5,81\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"50.5,51 59.5,51 10.5,101 1.5,101\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"60.5,62 60.5,73.5 33,101 21.5,101\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"60.5,86 60.5,101 45.5,101\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                text: "UW",
+                meaning: "ご安航を祈る。",
+                SVGText: "<svg viewBox=\"0 0 61 102\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"51\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"5.5\" y=\"56\" width=\"50\" height=\"40\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"12.5\" y=\"61\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                text: "UW1",
+                meaning: "あなたの協力を感謝する。ご安航を祈る。",
+                SVGText: "<svg viewBox=\"0 0 81 143\"><rect x=\"0.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"30.5\" y=\"0.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"0.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"30.5\" y=\"25.5\" width=\"30\" height=\"25\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><rect x=\"0.5\" y=\"51\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"5.5\" y=\"56\" width=\"50\" height=\"40\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"12.5\" y=\"61\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /><polygon points=\"0.5,101.5 80.5,111.5 80.5,131.5 0.5,141.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><circle cx=\"20.5\" cy=\"121.5\" r=\"12.5\" stroke=\"black\" stroke-width=\"0.5\" fill=\"red\" /></svg>"
+            },
+            {
+                text: "SM",
+                meaning: "私は、速力試験中である。",
+                SVGText: "<svg viewBox=\"0 0 61 102\"><rect x=\"0.5\" y=\"0.5\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><rect x=\"12.5\" y=\"10.5\" width=\"36\" height=\"30\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><rect x=\"0.5\" y=\"51\" width=\"60\" height=\"50\" stroke=\"black\" stroke-width=\"0.5\" fill=\"white\" /><polygon points=\"5.5,51 55.5,51 30.5,71\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"5.5,101 55.5,101 30.5,81\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"0.5,56 0.5,96 25.5,76\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /><polygon points=\"60.5,56 60.5,96 35.5,76\" stroke=\"black\" stroke-width=\"0.5\" fill=\"blue\" /></svg>"
+            }
+        ];
+
+        var correctAnswer;
+
+        window.addEventListener("load", function () {
+
+            document.getElementById("choice1").addEventListener("click", checkAnswer);
+            document.getElementById("choice2").addEventListener("click", checkAnswer);
+            document.getElementById("choice3").addEventListener("click", checkAnswer);
+            document.getElementById("choice4").addEventListener("click", checkAnswer);
+
+            showQuiz();
+
+        });
+
+        function checkAnswer(event) {
+            var message = document.createElement("div");
+            message.id = "message";
+
+            if (event.currentTarget.dataset.answer === correctAnswer) {
+                message.textContent = "正解";
+                message.style.color = "green";
+                message.style.backgroundColor = "palegreen";
+                message.style.borderColor = "green";
+                document.body.appendChild(message);
+
+                setTimeout(function () {
+                    document.body.removeChild(document.getElementById("message"));
+
+                    showQuiz();
+                }, 700);
+            }
+            else {
+                message.textContent = "不正解";
+                message.style.color = "red";
+                message.style.backgroundColor = "pink";
+                message.style.borderColor = "red";
+                document.body.appendChild(message);
+
+                setTimeout(function () {
+                    document.body.removeChild(document.getElementById("message"));
+                }, 1000);
+            }
+        }
+
+        function showQuiz() {
+
+            var quizType = getRandomInt(10);
+            switch (quizType) {
+
+                case 0:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].letter + "（" + choices[qIndex].word + "）";
+
+                    document.getElementById("choice1").innerHTML = choices[0].meaning;
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].meaning;
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].meaning;
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].meaning;
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 1:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].letter + "（" + choices[qIndex].word + "）";
+
+                    document.getElementById("choice1").innerHTML = choices[0].SVGText;
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].SVGText;
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].SVGText;
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].SVGText;
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 2:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].meaning;
+
+                    document.getElementById("choice1").innerHTML = choices[0].letter + "（" + choices[0].word + "）";
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].letter + "（" + choices[1].word + "）";
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].letter + "（" + choices[2].word + "）";
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].letter + "（" + choices[3].word + "）";
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 3:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].meaning;
+
+                    document.getElementById("choice1").innerHTML = choices[0].SVGText;
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].SVGText;
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].SVGText;
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].SVGText;
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 4:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].SVGText;
+
+                    document.getElementById("choice1").innerHTML = choices[0].letter + "（" + choices[0].word + "）";
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].letter + "（" + choices[1].word + "）";
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].letter + "（" + choices[2].word + "）";
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].letter + "（" + choices[3].word + "）";
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 5:
+
+                    var choices = [];
+                    loop: while (choices.length < 4) {
+
+                        var flag = LetterFlags[getRandomInt(LetterFlags.length)];
+
+                        for (var i = 0; i < choices.length; i++) {
+                            if (flag.letter === choices[i].letter) {
+                                continue loop;
+                            }
+                        }
+
+                        choices.push(flag);
+                    }
+
+                    var qIndex = getRandomInt(4);
+
+                    correctAnswer = choices[qIndex].letter;
+                    document.getElementById("question").innerHTML = choices[qIndex].SVGText;
+
+                    document.getElementById("choice1").innerHTML = choices[0].meaning;
+                    document.getElementById("choice1").dataset.answer = choices[0].letter;
+
+                    document.getElementById("choice2").innerHTML = choices[1].meaning;
+                    document.getElementById("choice2").dataset.answer = choices[1].letter;
+
+                    document.getElementById("choice3").innerHTML = choices[2].meaning;
+                    document.getElementById("choice3").dataset.answer = choices[2].letter;
+
+                    document.getElementById("choice4").innerHTML = choices[3].meaning;
+                    document.getElementById("choice4").dataset.answer = choices[3].letter;
+
+                    break;
+
+                case 6:
+                case 7:
+                case 8:
+
+                    var MeaningToImage = getRandomInt(2);
+                    if (MeaningToImage === 0) {
+
+                        var choices = [];
+                        loop: while (choices.length < 4) {
+
+                            var flag = OtherFlags[getRandomInt(OtherFlags.length)];
+
+                            for (var i = 0; i < choices.length; i++) {
+                                if (flag.meaning === choices[i].meaning) {
+                                    continue loop;
+                                }
+                            }
+
+                            choices.push(flag);
+                        }
+
+                        var qIndex = getRandomInt(4);
+
+                        correctAnswer = choices[qIndex].meaning;
+                        document.getElementById("question").innerHTML = choices[qIndex].SVGText;
+
+                        document.getElementById("choice1").innerHTML = choices[0].meaning;
+                        document.getElementById("choice1").dataset.answer = choices[0].meaning;
+
+                        document.getElementById("choice2").innerHTML = choices[1].meaning;
+                        document.getElementById("choice2").dataset.answer = choices[1].meaning;
+
+                        document.getElementById("choice3").innerHTML = choices[2].meaning;
+                        document.getElementById("choice3").dataset.answer = choices[2].meaning;
+
+                        document.getElementById("choice4").innerHTML = choices[3].meaning;
+                        document.getElementById("choice4").dataset.answer = choices[3].meaning;
+
+                    }
+                    else {
+
+                        var choices = [];
+                        loop: while (choices.length < 4) {
+
+                            var flag = OtherFlags[getRandomInt(OtherFlags.length)];
+
+                            for (var i = 0; i < choices.length; i++) {
+                                if (flag.meaning === choices[i].meaning) {
+                                    continue loop;
+                                }
+                            }
+
+                            choices.push(flag);
+                        }
+
+                        var qIndex = getRandomInt(4);
+
+                        correctAnswer = choices[qIndex].meaning;
+                        document.getElementById("question").innerHTML = choices[qIndex].meaning;
+
+                        document.getElementById("choice1").innerHTML = choices[0].SVGText;
+                        document.getElementById("choice1").dataset.answer = choices[0].meaning;
+
+                        document.getElementById("choice2").innerHTML = choices[1].SVGText;
+                        document.getElementById("choice2").dataset.answer = choices[1].meaning;
+
+                        document.getElementById("choice3").innerHTML = choices[2].SVGText;
+                        document.getElementById("choice3").dataset.answer = choices[2].meaning;
+
+                        document.getElementById("choice4").innerHTML = choices[3].SVGText;
+                        document.getElementById("choice4").dataset.answer = choices[3].meaning;
+
+                    }
+
+                    break;
+
+                case 9:
+
+                    switch (getRandomInt(4)) {
+
+                        case 0:
+
+                            var choices = [];
+                            loop: while (choices.length < 4) {
+
+                                var flag = Combination[getRandomInt(Combination.length)];
+
+                                for (var i = 0; i < choices.length; i++) {
+                                    if (flag.text === choices[i].text) {
+                                        continue loop;
+                                    }
+                                }
+
+                                choices.push(flag);
+                            }
+
+                            var qIndex = getRandomInt(4);
+
+                            correctAnswer = choices[qIndex].text;
+                            document.getElementById("question").innerHTML = choices[qIndex].meaning;
+
+                            document.getElementById("choice1").innerHTML = choices[0].SVGText;
+                            document.getElementById("choice1").dataset.answer = choices[0].text;
+
+                            document.getElementById("choice2").innerHTML = choices[1].SVGText;
+                            document.getElementById("choice2").dataset.answer = choices[1].text;
+
+                            document.getElementById("choice3").innerHTML = choices[2].SVGText;
+                            document.getElementById("choice3").dataset.answer = choices[2].text;
+
+                            document.getElementById("choice4").innerHTML = choices[3].SVGText;
+                            document.getElementById("choice4").dataset.answer = choices[3].text;
+
+                            break;
+
+                        case 1:
+
+                            var choices = [];
+                            loop: while (choices.length < 4) {
+
+                                var flag = Combination[getRandomInt(Combination.length)];
+
+                                for (var i = 0; i < choices.length; i++) {
+                                    if (flag.text === choices[i].text) {
+                                        continue loop;
+                                    }
+                                }
+
+                                choices.push(flag);
+                            }
+
+                            var qIndex = getRandomInt(4);
+
+                            correctAnswer = choices[qIndex].text;
+                            document.getElementById("question").innerHTML = choices[qIndex].meaning;
+
+                            document.getElementById("choice1").innerHTML = choices[0].text;
+                            document.getElementById("choice1").dataset.answer = choices[0].text;
+
+                            document.getElementById("choice2").innerHTML = choices[1].text;
+                            document.getElementById("choice2").dataset.answer = choices[1].text;
+
+                            document.getElementById("choice3").innerHTML = choices[2].text;
+                            document.getElementById("choice3").dataset.answer = choices[2].text;
+
+                            document.getElementById("choice4").innerHTML = choices[3].text;
+                            document.getElementById("choice4").dataset.answer = choices[3].text;
+
+                            break;
+
+                        case 2:
+
+                            var choices = [];
+                            loop: while (choices.length < 4) {
+
+                                var flag = Combination[getRandomInt(Combination.length)];
+
+                                for (var i = 0; i < choices.length; i++) {
+                                    if (flag.text === choices[i].text) {
+                                        continue loop;
+                                    }
+                                }
+
+                                choices.push(flag);
+                            }
+
+                            var qIndex = getRandomInt(4);
+
+                            correctAnswer = choices[qIndex].text;
+                            document.getElementById("question").innerHTML = choices[qIndex].SVGText;
+
+                            document.getElementById("choice1").innerHTML = choices[0].meaning;
+                            document.getElementById("choice1").dataset.answer = choices[0].text;
+
+                            document.getElementById("choice2").innerHTML = choices[1].meaning;
+                            document.getElementById("choice2").dataset.answer = choices[1].text;
+
+                            document.getElementById("choice3").innerHTML = choices[2].meaning;
+                            document.getElementById("choice3").dataset.answer = choices[2].text;
+
+                            document.getElementById("choice4").innerHTML = choices[3].meaning;
+                            document.getElementById("choice4").dataset.answer = choices[3].text;
+
+                            break;
+
+                        case 3:
+
+                            var choices = [];
+                            loop: while (choices.length < 4) {
+
+                                var flag = Combination[getRandomInt(Combination.length)];
+
+                                for (var i = 0; i < choices.length; i++) {
+                                    if (flag.text === choices[i].text) {
+                                        continue loop;
+                                    }
+                                }
+
+                                choices.push(flag);
+                            }
+
+                            var qIndex = getRandomInt(4);
+
+                            correctAnswer = choices[qIndex].text;
+                            document.getElementById("question").innerHTML = choices[qIndex].text;
+
+                            document.getElementById("choice1").innerHTML = choices[0].meaning;
+                            document.getElementById("choice1").dataset.answer = choices[0].text;
+
+                            document.getElementById("choice2").innerHTML = choices[1].meaning;
+                            document.getElementById("choice2").dataset.answer = choices[1].text;
+
+                            document.getElementById("choice3").innerHTML = choices[2].meaning;
+                            document.getElementById("choice3").dataset.answer = choices[2].text;
+
+                            document.getElementById("choice4").innerHTML = choices[3].meaning;
+                            document.getElementById("choice4").dataset.answer = choices[3].text;
+
+                            break;
+
+                    }
+
+                    break;
+            }
+
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+    </script>
+
+    <style>
+
+        section {
+            margin: 0 auto 1px auto;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid black;
+            border-radius: 3px;
+            height: 160px;
+            text-align: center;
+            user-select: none;
+            width: 50%;
+        }
+
+        td:active {
+            background-color: lightgray;
+        }
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+
+        td > svg {
+            height: 160px;
+        }
+
+        div {
+            border-style: solid;
+            border-width: 1px;
+            left: 0;
+            margin: auto;
+            position: fixed;
+            right: 0;
+            text-align: center;
+            top: 150px;
+            width: 200px;
+        }
+
+    </style>
+</head>
+<body>
+    <section id="question" style="height: 180px;"></section>
+    <section id="choices">
+        <table>
+            <tr>
+                <td id="choice1"></td><td id="choice2"></td>
+            </tr>
+            <tr>
+                <td id="choice3"></td><td id="choice4"></td>
+            </tr>
+        </table>
+    </section>
+</body>
+</html>

@@ -1,0 +1,176 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>海上衝突予防法を覚える</title>
+    <script>
+
+        const Questions = [
+            {
+                article: "第二条（適用船舶）",
+                texts: ["この法律は、","海洋","及び","これに接続する","航洋船が","航行","することができる","水域の","水上","にある","次条第一項に規定する船舶","について","適用する。"]
+            },
+            {
+                article: "第七条（衝突のおそれ）第2項",
+                texts: ["レーダー","を使用している","船舶は、","他の船舶と","衝突するおそれ","があることを","早期に","知るための","長距離","レーダー","レンジ","による走査、","探知","した物件の","レーダー","プロッティング","その他の","系統的な観察等","を行うことにより、","当該","レーダー","を適切に","用いなければならない。"]
+            },
+            {
+                article: "第七条（衝突のおそれ）第4項",
+                texts: ["船舶は、","接近してくる","他の船舶の","コンパス方位に","明確な","変化が認められない","場合は、","これと","衝突するおそれ","があると","判断しなければならず、","また、","接近してくる","他の船舶の","コンパス方位に","明確な","変化が認められる","場合においても、","大型船舶","若しくは","えい航作業","に従事している船舶","に接近し、","又は","近距離で","他の船舶","に接近するときは、","これと","衝突するおそれ","があり得ることを","考慮","しなければならない。"]
+            },
+            {
+                article: "第十三条（追越し船）第1項",
+                texts: ["追越し船は、","この法律の他の規定にかかわらず、","追い越される","船舶を","確実に","追い越し、","かつ、","その船舶から","十分に","遠ざかるまで","その船舶の","進路","を避けなければならない。"]
+            },
+            {
+                article: "第十三条（追越し船）第2項",
+                texts: ["船舶の","正横後","二十二度三十分","を超える","後方の位置","（","夜間","にあっては、","その船舶の","第二十一条第二項に規定するげん灯の","いずれをも","見ることができない","位置","）","から","その船舶を","追い越す","船舶は、","追越し船","とする。"]
+            },
+            {
+                article: "第十四条（行会い船）第1項",
+                texts: ["二隻の動力船が","真向かい","又は","ほとんど","真向かい","に行き会う","場合において","衝突するおそれ","があるときは、","各動力船は、","互いに","他の動力船の","左げん側を","通過","することができるように","それぞれ","針路を","右に","転じなければならない。","ただし、第九条第三項、第十条第七項又は第十八条第一項若しくは第三項の規定の適用がある場合は、この限りでない。"]
+            },
+            {
+                article: "第十五条（横切り船）",
+                texts: ["二隻の動力船が","互いに","進路を","横切る","場合において","衝突するおそれ","があるときは、","他の動力船を","右げん側に","見る","動力船は、","当該他の動力船の","進路","を避けなければならない。","この場合において、","他の動力船の","進路","を避けなければならない動力船は、","やむを得ない場合を除き、","当該他の動力船の","船首方向","を横切ってはならない。"]
+            }
+            ,
+            {
+                article: "第十七条（保持船）第1項",
+                texts: ["この法律の規定により","二隻の船舶のうち一隻の船舶が","他の船舶の","進路","を避けなければならない","場合は、","当該他の船舶は、","その","針路","及び","速力","を保たなければならない。"]
+            }
+            ,
+            {
+                article: "第十七条（保持船）第2項",
+                texts: ["前項の規定により","針路","及び","速力","を保たなければならない船舶","（","以下この条において","「保持船」","という。","）","は、","避航船が","この法律の規定に基づく","適切な","動作","をとっていないことが","明らかになった","場合は、","同項の規定","にかかわらず、","直ちに","避航船","との衝突を避けるための","動作","をとることが","できる。","この場合において、これらの船舶について第十五条第一項の規定の適用があるときは、","保持船","は、","やむを得ない場合を除き、","針路","を","左","に転じてはならない。"]
+            },
+            {
+                article: "第十七条（保持船）第3項",
+                texts: ["保持船は、","避航船","と","間近に","接近したため、","当該避航船の","動作","のみでは","避航船","との衝突を","避けることができない","と認める場合は、","第一項の規定にかかわらず、","衝突","を避けるための","最善の","協力動作","を","とらなければ","ならない。"]
+            }
+        ];
+
+        var question;
+
+        window.addEventListener("load", function () {
+            document.getElementById("picklist").addEventListener("click", pickText);
+            document.getElementById("next").addEventListener("click", showQuestion);
+
+            showQuestion();
+        });
+
+        function showQuestion() {
+            question = Questions[getRandomInt(Questions.length)];
+            document.getElementById("article").textContent = question.article;
+            document.getElementById("text").textContent = "";
+
+            var picklist = document.getElementById("picklist");
+            picklist.innerHTML = "";
+
+            var texts = Array.from(question.texts);
+            while (texts.length > 0) {
+                var index = getRandomInt(texts.length);
+
+                var span = document.createElement("span");
+                span.textContent = texts[index];
+                picklist.appendChild(span);
+
+                texts.splice(index, 1);
+            }
+        }
+
+        function pickText() {
+            var textElement = document.getElementById("text");
+            var picklist = document.getElementById("picklist");
+            var span = event.target;
+
+            var spans = picklist.getElementsByTagName("span");
+            if (question.texts[question.texts.length - spans.length] !== span.textContent) {
+                span.classList.add("wrong");
+                return;
+            }
+
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].classList.remove("wrong");
+            }
+
+            textElement.textContent = textElement.textContent + span.textContent;
+            picklist.removeChild(span);
+        }
+
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+    </script>
+    <style>
+
+        section {
+            border: 1px solid black;
+            border-radius: 3px;
+            height: 200px;
+            overflow-y: scroll;
+        }
+
+        section h1 {
+            font-size: 1.2rem;
+            margin: 0 0 5px 0;
+        }
+
+        section p {
+            margin: 0;
+        }
+
+        section:nth-child(2) {
+            margin-top: 5px;
+        }
+
+        section:nth-child(2) p {
+            font-size: 1.1rem;
+            line-height: 2.5rem;
+            padding: 0 5px;
+            user-select: none;
+        }
+
+        section p span {
+            background-color: azure;
+            border: 1px solid steelblue;
+            border-radius: 1rem;
+            cursor: pointer;
+            margin-right: 5px;
+            padding: 3px 7px;
+        }
+
+        section p span.wrong {
+            background-color: pink;
+            border: 1px solid salmon;
+        }
+
+        button {
+            background-color: cornflowerblue;
+            border: 1px solid black;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            display: block;
+            font-size: 1.1rem;
+            height: 40px;
+            margin-left: auto;
+            margin-top: 10px;
+            user-select: none;
+            width: 120px;
+        }
+
+    </style>
+</head>
+<body>
+    <section>
+        <h1 id="article"></h1>
+        <p id="text"></p>
+    </section>
+    <section>
+        <p id="picklist"></p>
+    </section>
+    <button id="next">次の問題へ</button>
+</body>
+</html>
